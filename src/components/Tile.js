@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import './Tile.js'
+import './Tile.css'
 
-class Box extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: this.props.tileValue,
-			clicked: false,
-			matched: false;
-		}
-	}
-	let displayColor = this.state.matched === true ? this.state.value : '#ffffff';
-	
+class Tile extends Component {
 	render() {
+		console.log(this.props.displayColor)
 		return (
-			<div />
+			<div 
+				className='tile'
+				style={{
+					backgroundColor: this.props.displayColor,
+				}}
+				onClick={(e) => [this.props.incrementTurn(), console.log(this.props.displayColor)]}
+			/>
 		)
 	}
 }
+
+export default Tile;

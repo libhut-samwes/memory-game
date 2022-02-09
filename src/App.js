@@ -23,10 +23,23 @@ const tileChooser = (num = 12) => {
 			}
 		}
 	let doubledArr = arr.concat(arr);
-	return doubledArr.map((value) => ({value, sort: Math.random() }))
+	let shuffledArr = doubledArr.map((value) => ({value, sort: Math.random() }))
 						.sort((a, b) => a.sort - b.sort)
 						.map(({ value }) => value);
+	let tileArray = []
+	for (let i in shuffledArr) {
+		tileArray.push({
+			id: i,
+			tileValue: doubledArr[i],
+			defaultValue: '#000000',
+			matched: false,
+			clicked: false,
+		})
+	}
+	return tileArray;
 }
+
+
 
 class App extends Component {
 	constructor(props) {
@@ -35,8 +48,8 @@ class App extends Component {
 			gameStarted: false,
 			gameOver: false,
 			tileCount: 24,
-			tileValues: [],
-			turnNumber: 0,
+			tiles: [],
+			turn: 0,
 			turnsSinceLastMatch: 0,
 			turnsOfMatches: [],
 			libraryMode: 'color'
@@ -51,11 +64,11 @@ class App extends Component {
 	}
 	gameStart() {
 		this.setState({gameStarted: true});
-		const tileValues = tileChooser(this.state.tileCount / 2);
-		this.setState({tileValues});
+		const tiles = tileChooser(this.state.tileCount / 2);
+		this.setState({tiles});
 	}
 	incrementTurn() {
-		this.setState({turnNumber: this.state.turnNumber + 1});
+		this.setState({turn: this.state.turn + 1});
 		/*if(isMatch) {
 			this.setState({turnsOfMatches: [...this.state.turnsOfMatches].push(this.state.turnNumber)});
 			this.setState({turnsSinceLastMatch: 0});
@@ -85,15 +98,17 @@ class App extends Component {
 				/>*/}
 				{/* If game start condition is true and game over condition is false  */}
 				<GameBoard 
+					className="gameBoard"
 					gameOver={this.gameOver}
 					incrementTurn={this.incrementTurn}
-					tileValues={this.state.tileValues}
+					tiles={this.state.tiles}
 				/>
 				{/* If game over condition is true */}
 				{/*<GameOver
 					gameStart={this.gameStart}
 					selectLibrary={this.selectLibrary}
 				/> */}
+				<p>{this.state.turn}</p>
 				<Footer />
 			</div>
 		);

@@ -6,7 +6,7 @@ class Footer extends Component {
 		return (
 			<div className="footer">
 				<p>Memory Game</p>
-				<p>&copy; Highpath Associates 2022</p>
+				<p>&copy; ~sonwet enterprises 2022</p>
 			</div>
 		);
 	}

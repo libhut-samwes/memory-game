@@ -4,7 +4,6 @@ import GameBoard from './components/GameBoard'
 import Footer from './components/Footer'
 import './App.css';
 
-const availableLibraries = ['colors', 'urbitSigils', 'hoonRunes'];
 
 function randColor() {
 	const red = Math.floor(Math.random() * 255);
@@ -39,15 +38,13 @@ const tileChooser = (num = 12) => {
 	return tileArray;
 }
 
-
-
 class App extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			gameStarted: false,
 			gameOver: false,
-			tileCount: 24,
+			tileCount: 10,
 			tiles: [],
 			turn: 0,
 			turnsSinceLastMatch: 0,
@@ -57,7 +54,8 @@ class App extends Component {
 		this.gameOver = this.gameOver.bind(this);
 		this.gameStart = this.gameStart.bind(this);
 		this.incrementTurn = this.incrementTurn.bind(this);
-		this.selectLibrary = this.selectLibrary.bind(this);
+		this.clickedToggle = this.clickedToggle.bind(this);
+		this.matchedToggle = this.matchedToggle.bind(this);
 	}
 	gameOver() {
 		this.setState({gameOver: true});
@@ -69,46 +67,38 @@ class App extends Component {
 	}
 	incrementTurn() {
 		this.setState({turn: this.state.turn + 1});
-		/*if(isMatch) {
-			this.setState({turnsOfMatches: [...this.state.turnsOfMatches].push(this.state.turnNumber)});
-			this.setState({turnsSinceLastMatch: 0});
-		}
-		this.setState({turnsSinceLastMatch: this.state.turnsSinceLastMatch + 1});
-		*/
 	}
-	selectLibrary(lib) {
-		if(!availableLibraries.includes(lib)) {
-			throw `${lib} is not loaded as a library`
-		}
-		this.setState({libraryMode: lib});
+	clickedToggle(i) {
+		const arr = this.state.tiles;
+		arr[i].clicked = !arr[i].clicked;
+		this.setState({tiles: arr});
 	}
-
+	matchedToggle(i) {
+		const arr = this.state.tiles;
+		arr[i].matched = true;
+		this.setState({tiles: arr})
+	}
 	render() {
 		return (
 			<div className="App">
- 				<NavBar 
+				<NavBar 
 					gameStart={this.gameStart} 
 					selectLibrary={this.selectLibrary} 
 					gameOver={this.gameOver}
 				/> 
-				{/* If game start condition is false*/}
-				{/* <Welcome 
-					gameStart={this.gameStart}
-					selectLibrary={this.selectLibrary}
-				/>*/}
-				{/* If game start condition is true and game over condition is false  */}
 				<GameBoard 
 					className="gameBoard"
 					gameOver={this.gameOver}
 					incrementTurn={this.incrementTurn}
 					tiles={this.state.tiles}
+					clickedToggle={this.clickedToggle}
+					matchedToggle={this.matchedToggle}
 				/>
 				{/* If game over condition is true */}
 				{/*<GameOver
 					gameStart={this.gameStart}
 					selectLibrary={this.selectLibrary}
 				/> */}
-				<p>{this.state.turn}</p>
 				<Footer />
 			</div>
 		);

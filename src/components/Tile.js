@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import './Tile.css'
 
 class Tile extends Component {
 	render() {
-		console.log(this.props.displayColor)
+		const clickHandler = () => {
+			this.props.incrementTurn();
+			this.props.clickedToggle(this.props.index);
+			this.props.matchHandler(this.props.index);
+		}
 		return (
 			<div 
 				className='tile'
 				style={{
 					backgroundColor: this.props.displayColor,
 				}}
-				onClick={(e) => [this.props.incrementTurn(), console.log(this.props.displayColor)]}
+				onClick={clickHandler}
 			/>
 		)
 	}

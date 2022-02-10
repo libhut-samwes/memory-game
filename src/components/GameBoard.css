@@ -7,10 +7,14 @@
 }
 
 .tile {
-	border: 1px solid black;
 	position: relative;
 	width: 10%;
 	height: 0;
 	margin: 1%;
 	padding-bottom: 10%;
+	border-radius: 10px;
+}
+
+.tile:hover {
+	cursor: pointer;
 }

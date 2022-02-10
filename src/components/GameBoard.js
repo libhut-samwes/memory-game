@@ -15,9 +15,6 @@ class GameBoard extends Component {
 			const matchArr = [...this.state.matchCheck];
 			matchArr.push(this.props.tiles[index])
 			this.setState({matchCheck: matchArr});
-			const values = matchArr.map(tile => {
-				return tile.tileValue;
-			});
 			if(matchArr.length === 2) {
 				if(matchArr[0].tileValue === matchArr[1].tileValue && matchArr[0].id !== matchArr[1].id) {
 					this.props.matchedToggle(matchArr[0].id);
@@ -27,12 +24,11 @@ class GameBoard extends Component {
 				this.props.clickedToggle(matchArr[1].id);
 				this.setState({matchCheck: []});
 			}
-		}, 1000);
+		}, 500);
 	}
 	render() {
 		const tiles = this.props.tiles;
 		const gameBoard = [];
-		console.log(this.state.matchCheck.length)
 		for (let i in tiles) {
 				if(!tiles[i].matched) {
 					gameBoard.push(

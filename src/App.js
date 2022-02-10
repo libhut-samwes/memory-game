@@ -44,7 +44,7 @@ class App extends Component {
 		this.state = {
 			gameStarted: false,
 			gameOver: false,
-			tileCount: 10,
+			tileCount: 24,
 			tiles: [],
 			turn: 0,
 			turnsSinceLastMatch: 0,
@@ -60,9 +60,9 @@ class App extends Component {
 	gameOver() {
 		this.setState({gameOver: true});
 	}
-	gameStart() {
+	gameStart(num) {
 		this.setState({gameStarted: true});
-		const tiles = tileChooser(this.state.tileCount / 2);
+		const tiles = tileChooser(num / 2);
 		this.setState({tiles});
 	}
 	incrementTurn() {
